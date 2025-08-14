@@ -51,17 +51,25 @@ After deployment completes, your Playwright MCP server will be ready to use.
 
 This repository includes several files that enable smooth deployment on Heroku:
 
-1. `Procfile`: Defines the processes to run (web and mcp_playwright)
+1. `Procfile`: Defines the processes to run (web and mcp-playwright)
 2. `heroku-setup.sh`: Configures the environment for Heroku deployment
 3. `heroku.package.json`: Modified package.json that includes TypeScript as a dependency
+4. `app.json`: Configures the application for Heroku, including scaling settings
 
-These files ensure that the TypeScript compilation process works properly on Heroku.
+#### Cost-Efficient Scaling
+
+This MCP server is configured to scale to 0 dynos by default, which means:
+- No costs are incurred when the server is not actively being used
+- Dynos are automatically spun up when the MCP tool is called by an AI model
+- After execution, the dynos will scale back down to 0
+
+This ensures you only pay for actual usage of the server and follows the recommended practice for Heroku MCP servers.
 
 ### Registering with Heroku Managed Inference
 
 To register the MCP server with Heroku Managed Inference:
    - Ensure you have the Managed Inference add-on
-   - The Procfile includes the `mcp_playwright` entry needed for registration
+   - The Procfile includes the `mcp-playwright` entry needed for registration
 
 ### Configuration
 
