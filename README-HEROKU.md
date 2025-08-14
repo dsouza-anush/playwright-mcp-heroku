@@ -6,18 +6,30 @@ This repository contains a Heroku-ready version of the [Microsoft Playwright MCP
 
 ## Deployment Instructions
 
-### Prerequisites
+### Option 1: One-Click Deployment (Recommended)
+
+Simply click the "Deploy to Heroku" button at the top of this page. This will:
+
+1. Create a new Heroku app
+2. Set up the required buildpacks and configuration
+3. Deploy the application
+
+After deployment completes, your Playwright MCP server will be ready to use.
+
+### Option 2: Manual Deployment
+
+#### Prerequisites
 
 - Heroku CLI installed
 - Git installed
 - Node.js installed (v18 or higher)
 
-### Deploy to Heroku
+#### Deploy to Heroku
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/heroku-playwright-mcp.git
-   cd heroku-playwright-mcp
+   git clone https://github.com/dsouza-anush/playwright-mcp-heroku.git
+   cd playwright-mcp-heroku
    ```
 
 2. Login to Heroku:
@@ -35,7 +47,19 @@ This repository contains a Heroku-ready version of the [Microsoft Playwright MCP
    git push heroku main
    ```
 
-5. Register the MCP server with Heroku Managed Inference:
+### How the Heroku Deployment Works
+
+This repository includes several files that enable smooth deployment on Heroku:
+
+1. `Procfile`: Defines the processes to run (web and mcp_playwright)
+2. `heroku-setup.sh`: Configures the environment for Heroku deployment
+3. `heroku.package.json`: Modified package.json that includes TypeScript as a dependency
+
+These files ensure that the TypeScript compilation process works properly on Heroku.
+
+### Registering with Heroku Managed Inference
+
+To register the MCP server with Heroku Managed Inference:
    - Ensure you have the Managed Inference add-on
    - The Procfile includes the `mcp_playwright` entry needed for registration
 
