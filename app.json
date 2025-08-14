@@ -36,8 +36,5 @@
     }
   ],
   "addons": [],
-  "scripts": {
-    "postdeploy": "npm run build"
-  },
   "stack": "heroku-22"
 }

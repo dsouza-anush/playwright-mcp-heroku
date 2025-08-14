@@ -1,0 +1,58 @@
+{
+  "name": "@playwright/mcp",
+  "version": "0.0.33",
+  "description": "Playwright Tools for MCP - Heroku Deployment",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsouza-anush/playwright-mcp-heroku.git"
+  },
+  "homepage": "https://playwright.dev",
+  "engines": {
+    "node": ">=18"
+  },
+  "author": {
+    "name": "Microsoft Corporation"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc",
+    "lint": "npm run update-readme && npm run check-deps && eslint . && tsc --noEmit",
+    "lint-fix": "eslint . --fix",
+    "check-deps": "node utils/check-deps.js",
+    "update-readme": "node utils/update-readme.js",
+    "watch": "tsc --watch",
+    "test": "playwright test",
+    "ctest": "playwright test --project=chrome",
+    "ftest": "playwright test --project=firefox",
+    "wtest": "playwright test --project=webkit",
+    "run-server": "node lib/browserServer.js",
+    "clean": "rm -rf lib",
+    "npm-publish": "npm run clean && npm run build && npm run test && npm publish",
+    "heroku-prebuild": "echo 'Setting up Heroku deployment'",
+    "heroku-postbuild": "npm install typescript && npm run build"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.16.0",
+    "commander": "^13.1.0",
+    "debug": "^4.4.1",
+    "dotenv": "^17.2.0",
+    "mime": "^4.0.7",
+    "playwright": "1.55.0-alpha-2025-08-12",
+    "playwright-core": "1.55.0-alpha-2025-08-12",
+    "typescript": "^5.8.2",
+    "ws": "^8.18.1",
+    "zod": "^3.24.1",
+    "zod-to-json-schema": "^3.24.4"
+  },
+  "bin": {
+    "mcp-server-playwright": "cli.js"
+  }
+}

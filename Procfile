@@ -1,2 +1,2 @@
-web: npm run build && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
-mcp_playwright: npm run build && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
+web: ./heroku-setup.sh && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
+mcp_playwright: ./heroku-setup.sh && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
