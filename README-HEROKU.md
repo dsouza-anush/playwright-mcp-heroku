@@ -118,10 +118,11 @@ Once deployed, your Playwright MCP server will be available at:
 
 ### Using with Heroku Inference
 
-This server is compatible with Heroku Inference and can be registered as an MCP tool for your AI models. To use this server with Heroku Inference:
+This server follows the Heroku Inference MCP standards and can be registered as an MCP tool for your AI models. The server provides web browsing capabilities that can be used by AI models through the Model Context Protocol.
 
-1. Deploy this server to Heroku as described above
-2. Attach the server to your Heroku Managed Inference and Agents chat model using:
+#### Registering with Heroku Inference
+
+After deployment, you need to attach the server to your Heroku Managed Inference and Agents chat model:
 
 ```bash
 # Create a new model (if you don't have one already)
@@ -131,7 +132,32 @@ heroku ai:models:create MODEL_NAME -a your-playwright-mcp-app --as INFERENCE
 heroku addons:attach MODEL_RESOURCE -a your-playwright-mcp-app --as INFERENCE
 ```
 
-The MCP entry in the Procfile (`mcp_playwright`) will be automatically registered with your model.
+The MCP entry in the Procfile (`mcp-playwright`) will be automatically registered with your model.
+
+#### Using in API Requests
+
+Once registered, you can use the Playwright web browsing capability in your model API requests:
+
+```json
+{
+  "model": "your-model-name",
+  "messages": [
+    {"role": "user", "content": "Search the web for information about climate change"}
+  ],
+  "tools": [
+    {
+      "type": "mcp",
+      "mcp_key": "mcp-playwright"
+    }
+  ]
+}
+```
+
+#### MCP Server Endpoints
+
+This deployment provides two endpoints for MCP communication:
+- Primary Streamable HTTP endpoint: `https://your-app-name.herokuapp.com/mcp`
+- Legacy SSE endpoint: `https://your-app-name.herokuapp.com/sse`
 
 ### Using with Claude or other MCP clients
 

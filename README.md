@@ -1,10 +1,10 @@
-## Playwright MCP for Heroku
+## Heroku MCP Server - Playwright Web Browser
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/dsouza-anush/playwright-mcp-heroku)
 
-A Model Context Protocol (MCP) server that provides browser automation capabilities using [Playwright](https://playwright.dev). This server enables LLMs to interact with web pages through structured accessibility snapshots, bypassing the need for screenshots or visually-tuned models.
+A Model Context Protocol (MCP) server that provides browser automation capabilities using [Playwright](https://playwright.dev). This server enables AI models to interact with web pages through structured accessibility snapshots, bypassing the need for screenshots or visually-tuned models.
 
-This fork is adapted for easy deployment to Heroku and is compatible with [Heroku Inference](https://devcenter.heroku.com/articles/heroku-inference-working-with-mcp) for AI tools.
+This implementation is fully compatible with [Heroku Inference](https://devcenter.heroku.com/articles/heroku-inference-working-with-mcp) and can be used as a web browsing tool for your AI models.
 
 ### Key Features
 
