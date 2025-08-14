@@ -8,3 +8,4 @@ playwright-report/
 .DS_Store
 .env
 sessions/
+.heroku-backup/

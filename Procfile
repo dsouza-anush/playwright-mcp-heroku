@@ -1,0 +1,2 @@
+web: npm run build && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
+mcp_playwright: npm run build && node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox
