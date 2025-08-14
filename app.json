@@ -1,12 +1,33 @@
 {
   "name": "Playwright MCP for Heroku",
-  "description": "A Playwright MCP server for web browsing tools on Heroku",
-  "repository": "https://github.com/microsoft/playwright-mcp",
-  "keywords": ["node", "playwright", "mcp", "browser", "automation"],
+  "description": "A Playwright MCP server for web browsing tools on Heroku - compatible with Heroku Inference",
+  "repository": "https://github.com/dsouza-anush/playwright-mcp-heroku",
+  "logo": "https://playwright.dev/img/playwright-logo.svg",
+  "website": "https://github.com/dsouza-anush/playwright-mcp-heroku",
+  "success_url": "/",
+  "keywords": ["node", "playwright", "mcp", "browser", "automation", "heroku-inference", "ai-tools"],
   "env": {
     "NODE_ENV": {
       "description": "The environment for the application",
       "value": "production"
+    },
+    "PLAYWRIGHT_MCP_HEADLESS": {
+      "description": "Run browser in headless mode",
+      "value": "true"
+    },
+    "PLAYWRIGHT_MCP_BROWSER": {
+      "description": "Browser to use (chromium, firefox, webkit)",
+      "value": "chromium"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "mcp_playwright": {
+      "quantity": 1,
+      "size": "basic"
     }
   },
   "buildpacks": [
@@ -14,5 +35,9 @@
       "url": "heroku/nodejs"
     }
   ],
+  "addons": [],
+  "scripts": {
+    "postdeploy": "npm run build"
+  },
   "stack": "heroku-22"
 }
