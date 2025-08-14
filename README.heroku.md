@@ -1,5 +1,7 @@
 # Playwright MCP for Heroku
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This is a fork of [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) adapted for Heroku deployment. This repository contains minimal changes to make the Playwright MCP server work on Heroku while ensuring it can continue to receive updates from the original repository.
 
 ## Added Files

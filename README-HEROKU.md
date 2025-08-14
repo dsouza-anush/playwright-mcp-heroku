@@ -1,5 +1,7 @@
 # Playwright MCP for Heroku
 
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This repository contains a Heroku-ready version of the [Microsoft Playwright MCP](https://github.com/microsoft/playwright-mcp) server, which provides web browsing capabilities via the Model Context Protocol (MCP).
 
 ## Deployment Instructions
