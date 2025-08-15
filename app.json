@@ -36,5 +36,8 @@
     }
   ],
   "addons": [],
+  "scripts": {
+    "postdeploy": "npm install && npm install typescript && npm run build"
+  },
   "stack": "heroku-22"
 }
