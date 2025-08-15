@@ -20,6 +20,7 @@
     "heroku-prebuild": "echo 'Installing devDependencies for build' && npm install --no-package-lock",
     "heroku-postbuild": "npm run build",
     "start": "node cli.js --host 0.0.0.0 --port $PORT --headless --browser chromium --no-sandbox",
+    "mcp": "node cli.js --headless --browser chromium --no-sandbox",
     "lint": "npm run update-readme && npm run check-deps && eslint . && tsc --noEmit",
     "lint-fix": "eslint . --fix",
     "check-deps": "node utils/check-deps.js",
