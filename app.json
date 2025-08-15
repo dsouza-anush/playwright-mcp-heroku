@@ -6,6 +6,9 @@
   "website": "https://github.com/dsouza-anush/playwright-mcp-heroku",
   "success_url": "/",
   "keywords": ["node", "playwright", "mcp", "browser", "automation", "heroku-inference", "ai-tools"],
+  "engines": {
+    "node": "18.x"
+  },
   "env": {
     "NODE_ENV": {
       "description": "The environment for the application",
@@ -36,8 +39,5 @@
     }
   ],
   "addons": [],
-  "scripts": {
-    "postdeploy": "npm install && npm install typescript && npm run build"
-  },
   "stack": "heroku-22"
 }

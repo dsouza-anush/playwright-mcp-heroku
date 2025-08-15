@@ -7,4 +7,6 @@ update-from-upstream.sh
 heroku-setup.sh
 heroku.package.json
 .heroku-files
+.npmrc
+package.json
 .github/workflows/update-from-upstream.yml
