@@ -1,0 +1,92 @@
+name: Update from Upstream
+
+on:
+  # Run weekly at midnight on Sunday
+  schedule:
+    - cron: '0 0 * * 0'
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+jobs:
+  update-from-upstream:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+      
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/microsoft/playwright-mcp.git || echo "Upstream remote already exists"
+      
+      - name: Fetch upstream
+        run: git fetch upstream
+      
+      - name: Backup Heroku-specific files
+        run: |
+          mkdir -p .heroku-backup
+          if [ -f .heroku-files ]; then
+            echo "Backing up Heroku-specific files listed in .heroku-files"
+            while IFS= read -r file; do
+              # Skip empty lines and comments
+              [[ -z "$file" || "$file" =~ ^#.*$ ]] && continue
+              # Backup the file if it exists
+              if [ -f "$file" ]; then
+                echo "  Backing up $file"
+                cp -f "$file" .heroku-backup/ 2>/dev/null || true
+              fi
+            done < .heroku-files
+          else
+            echo "Warning: .heroku-files list not found. Falling back to hardcoded list."
+            cp -f Procfile .heroku-backup/ 2>/dev/null || true
+            cp -f app.json .heroku-backup/ 2>/dev/null || true
+            cp -f README-HEROKU.md .heroku-backup/ 2>/dev/null || true
+            cp -f README.heroku.md .heroku-backup/ 2>/dev/null || true
+            cp -f update-from-upstream.sh .heroku-backup/ 2>/dev/null || true
+            cp -f heroku-setup.sh .heroku-backup/ 2>/dev/null || true
+            cp -f heroku.package.json .heroku-backup/ 2>/dev/null || true
+            cp -f .heroku-files .heroku-backup/ 2>/dev/null || true
+            cp -rf .github/workflows .heroku-backup/ 2>/dev/null || true
+          fi
+
+      - name: Merge upstream changes
+        run: |
+          git merge upstream/main --no-edit || (echo "Merge failed due to conflicts. Aborting." && git merge --abort && exit 1)
+
+      - name: Restore Heroku-specific files
+        run: |
+          if [ -d .heroku-backup ]; then
+            for file in .heroku-backup/*; do
+              if [ -f "$file" ]; then
+                base_file=$(basename "$file")
+                echo "  Restoring $base_file"
+                cp -f "$file" ./ 2>/dev/null || true
+              elif [ -d "$file" ]; then
+                base_dir=$(basename "$file")
+                echo "  Restoring directory $base_dir"
+                cp -rf "$file" ./ 2>/dev/null || true
+              fi
+            done
+          fi
+          rm -rf .heroku-backup
+
+      - name: Push changes
+        run: |
+          # Only push if there are changes
+          if git diff --quiet HEAD; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          # Commit and push changes
+          git add .
+          git commit -m "Auto-update from upstream (microsoft/playwright-mcp)" -m "This is an automated update from the upstream repository. Heroku-specific files have been preserved."
+          git push

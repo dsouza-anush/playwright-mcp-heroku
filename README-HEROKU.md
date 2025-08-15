@@ -80,11 +80,23 @@ The following environment variables can be set in Heroku:
 
 ### Keeping Up-to-Date with Upstream
 
-This repository is configured to track the original Microsoft Playwright MCP repository as an upstream remote. To update:
+This repository automatically stays in sync with the original Microsoft Playwright MCP repository while preserving Heroku-specific modifications.
 
-#### Automatic Update (Recommended)
+#### Automatic GitHub Actions Update (Default)
 
-Use the provided update script which preserves Heroku-specific files:
+A GitHub Action runs weekly to:
+1. Fetch the latest changes from the upstream Microsoft repository
+2. Preserve all Heroku-specific files and configurations
+3. Create a commit with the updated code
+4. Push the changes to this repository
+
+This means you always get the latest features and fixes without losing Heroku compatibility.
+
+#### Manual Update (Alternative)
+
+If you need to update manually, you can:
+
+##### Option 1: Use the provided script (Recommended)
 
 ```
 ./update-from-upstream.sh
@@ -96,9 +108,9 @@ This script will:
 3. Restore Heroku-specific files
 4. Provide instructions for deployment
 
-#### Manual Update
+##### Option 2: Update step by step
 
-If you prefer to update manually:
+If you prefer complete manual control:
 
 1. Fetch updates from upstream:
    ```
