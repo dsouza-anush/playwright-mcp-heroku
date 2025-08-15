@@ -1,2 +1,2 @@
 web: npm start
-mcp-playwright: npm run mcp
+mcp-playwright: node cli.js --headless --browser chromium --no-sandbox
